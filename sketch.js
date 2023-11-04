@@ -157,8 +157,8 @@ function mouseReleased() {
     if (duration <= 0) {
       clearInterval(interval);
     } else {
-      //Continuously reduce the value by 5
-      duration -= 5;
+      //Continuously reduce the value by 1
+      duration -= 1;
     }
   }, 10)
   // Run every 0.01 seconds
