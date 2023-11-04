@@ -5,15 +5,18 @@ let coordinates = [];
 // canvas size
 let size = 1000;
 let radius = size * 0.27;
+//Create mouseStartTime and duration and set the base to 0.
+let mouseStartTime, duration = 0;
 
 function setup() {
   // Create a canvas with a specified size of 1000x1000
   createCanvas(size, size);
   // Generate random color array of size 500
   for (let i = 0; i < 500; i++) {
-    let r = random(0, 255);
-    let g = random(0, 255);
-    let b = random(0, 255);
+    let r = random(125, 255);
+    let g = random(125, 255);
+    let b = random(125, 255);
+    //Use similar pale colors to create a dreamy feel
     //Enter random rgb values into the color array
     colors.push([r,g,b]);
     //Enter random rgb values into the deviations array
@@ -62,7 +65,7 @@ function drawCircle(x, y, index) {
     fill(0, 0, 0, 0);
     stroke(colors[index * 10 + i + 1]);
     strokeWeight(10);
-    ellipse(x, y, (i + 1) * 15 + deviations[i], (i + 1) * 15 + + deviations[i + 1])
+    ellipse(x, y, (i + 1) * (15 + duration / size * 30) + deviations[i], (i + 1) * (15 + duration / size * 30) + + deviations[i + 1])
   }
   translate(x, y);
   // Draw the serration line in the middle of every four circles
@@ -75,11 +78,7 @@ function drawCircle(x, y, index) {
       dashedCircle(75 + i * (radius - 180) / 5, 2, 4);
     }
   }
-  // Draw the stamen in the middle of every two circles
-  if (index % 2 === 0) {
-    rotate(Math.PI * 2 / 30 * index);
-    drawPetal(150)
-  }
+ 
   pop()
 }
 
@@ -142,19 +141,20 @@ function circleLine(color) {
   }
 }
 
-/*
-* Draw stamen line of circle
-* currentRadius: radius size of a circle
-*/
-function drawPetal(currentRadius) {
-  const ratio = 3
-  // draw bezier line by calc result
-  stroke(234, 85, 126);
-  strokeWeight(10);
-  noFill();
-  bezier(0, 0, -currentRadius / ratio, currentRadius, currentRadius / ratio, currentRadius, currentRadius / ratio, currentRadius);
-  // rotate and draw another bezier line by calc result
-  rotate(Math.PI * 2 /90);
-  stroke(236, 65, 87);
-  bezier(0, 0, -currentRadius / ratio, currentRadius, currentRadius / ratio, currentRadius, currentRadius / ratio, currentRadius);
+
+
+function mousePressed() {
+  mouseStartTime = Date.now();
+}
+
+function mouseReleased() {
+  duration = Date.now() - mouseStartTime;
+
+  const interval = setInterval(() => {
+    if (duration <= 0) {
+      clearInterval(interval);
+    } else {
+      duration -= 5;
+    }
+  }, 10)
 }
