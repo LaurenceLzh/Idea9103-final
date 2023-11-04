@@ -54,7 +54,7 @@ function draw() {
 function drawCircle(x, y, index) {
   //Set two different easing values
   let easing=duration*0.1;
-  let easing1=duration*0.01;
+  let easing1=duration*0.005;
   push()
   // background circle
   stroke(0, 0, 0, 0)
