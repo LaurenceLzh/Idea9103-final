@@ -52,11 +52,15 @@ function draw() {
 * index: index of the current circle in the array
 */
 function drawCircle(x, y, index) {
+  //Set two different easing values
+  let easing=duration*0.1;
+  let easing1=duration*0.01;
   push()
   // background circle
   stroke(0, 0, 0, 0)
   fill(colors[index * 10]);
-  circle(x, y, radius);
+  //Add the easing1 element to the background base circle during animation time
+  circle(x, y, radius+easing1);
   // center circle
   fill(colors[index * 10 + 1]);
   circle(x, y, 20);
@@ -75,7 +79,8 @@ function drawCircle(x, y, index) {
     // Draw dashed circle
     for (let i = 0; i < 4; i++) {
       stroke(colors[index * 10 + 10]);
-      dashedCircle(75 + i * (radius - 180) / 5, 2, 4);
+      //Add the dotted line element to the changing easing element during the animation time
+      dashedCircle(75 + i * (radius - 180) / 5+easing, 2, 4);
     }
   }
  
