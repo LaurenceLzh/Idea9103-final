@@ -144,17 +144,22 @@ function circleLine(color) {
 
 
 function mousePressed() {
+  // Record the time when the mouse is pressed
   mouseStartTime = Date.now();
 }
 
 function mouseReleased() {
+  //Record the time between mouse press and release as duration
   duration = Date.now() - mouseStartTime;
 
   const interval = setInterval(() => {
+    //Clear when it is less than or equal to 0
     if (duration <= 0) {
       clearInterval(interval);
     } else {
+      //Continuously reduce the value by 5
       duration -= 5;
     }
   }, 10)
+  // Run every 0.01 seconds
 }
